@@ -39,7 +39,7 @@ export default function Weather(props) {
                 placeholder="Search city..."
                 aria-describedby="search-addon"
               />
-              <Button className="submit-city">
+              <button className="submit-city">
                 <span
                   className="input-group-text border-gray search-box-icon"
                   role="img"
@@ -48,7 +48,7 @@ export default function Weather(props) {
                   🔍
                   <i className="fas fa-search"></i>
                 </span>
-              </Button>
+              </button>
             </div>
           </section>
         </form>
