@@ -2,36 +2,30 @@ import React, { useState } from "react";
 import "./Weather.css";
 import "./index.css";
 import axios from "axios";
+import FormattedDate from "./FormattedDate";
 
 export default function Weather(props) {
   const [weatherData, setWeatherData] = useState({ ready: false });
-  // let [temperature, setTemperature] = useState("");
-  //let [description, setDescription] = useState("");
-  //let [realFeel, setRealFeel] = useState("");
-  //let [humidity, setHumidity] = useState("");
-  //let [windSpeed, setWindSpeed] = useState("");
-  //let [iconCode, setIconCode] = useState("");
-  //let [iconUrl, setIconUrl] = useState("");
-  //let city = "Houston";
-  //setTemperature(Math.round(response.data.main.temp));
-  //setDescription(response.data.weather[0].main);
-  //setRealFeel(Math.round(response.data.main.feels_like));
-  //setHumidity(response.data.main.humidity);
-  //setWindSpeed(Math.round(response.data.wind.speed));
-  //setIconCode(response.data.weather[0].icon);
-  //setIconUrl(`http://openweathermap.org/img/wn/${iconCode}@2x.png`);
 
   function showResults(response) {
+    console.log(response);
     setWeatherData({
       ready: true,
-      temperature: response.data.main.temp,
       city: response.data.name,
+      date: new Date(response.data.dt * 1000),
+      temperature: response.data.main.temp,
       description: response.data.weather[0].main,
       realFeel: response.data.main.feels_like,
       humidity: response.data.main.humidity,
       windSpeed: response.data.wind.speed,
       iconCode: response.data.weather[0].icon,
     });
+  }
+
+  function search() {
+    const apiKey = "65d2465365ff42d62007012b620803eb";
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${props.defaultCity}&appid=${apiKey}&units=imperial`;
+    axios.get(url).then(showResults);
   }
 
   if (weatherData.ready) {
@@ -66,7 +60,9 @@ export default function Weather(props) {
               <h1 className="display-city">{weatherData.city}</h1>
               <span className="todays-conditions">
                 <ul>
-                  <li className="current-date">{"Wednesday 5.18"}</li>
+                  <li className="current-date">
+                    <FormattedDate date={weatherData.date} />
+                  </li>
                   <li className="current-time">{"8:00"}</li>
                 </ul>
                 <img src={weatherData.iconUrl} alt="" />
@@ -113,10 +109,7 @@ export default function Weather(props) {
       </div>
     );
   } else {
-    const apiKey = "65d2465365ff42d62007012b620803eb";
-    let url = `https://api.openweathermap.org/data/2.5/weather?q=${props.defaultCity}&appid=${apiKey}&units=imperial`;
-    axios.get(url).then(showResults);
-
+    search();
     return "Loading..";
   }
 }
