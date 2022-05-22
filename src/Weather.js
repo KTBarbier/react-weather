@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import "./Weather.css";
 import "./index.css";
 import axios from "axios";
-import FormattedDate from "./FormattedDate";
+
+import WeatherInfo from "./WeatherInfo";
 
 export default function Weather(props) {
   const [weatherData, setWeatherData] = useState({ ready: false });
+  const [city, setCity] = useState(props.defaultCity);
 
   function showResults(response) {
     console.log(response);
@@ -24,15 +26,24 @@ export default function Weather(props) {
 
   function search() {
     const apiKey = "65d2465365ff42d62007012b620803eb";
-    let url = `https://api.openweathermap.org/data/2.5/weather?q=${props.defaultCity}&appid=${apiKey}&units=imperial`;
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
     axios.get(url).then(showResults);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    search();
+  }
+
+  function handleCityChange(event) {
+    setCity(event.target.value);
   }
 
   if (weatherData.ready) {
     return (
       <div className="Weather">
         <div className="container">
-          <form className="search-bar">
+          <form onSubmit={handleSubmit} className="search-bar">
             <section className="sec-search-box">
               <div className="input-group rounded search-box">
                 <input
@@ -41,6 +52,8 @@ export default function Weather(props) {
                   className="form-control btn-rounded btn-search-box"
                   placeholder="Search city..."
                   aria-describedby="search-addon"
+                  autoFocus="on"
+                  onChange={handleCityChange}
                 />
                 <button className="submit-city">
                   <span
@@ -55,56 +68,7 @@ export default function Weather(props) {
               </div>
             </section>
           </form>
-          <div className="parent">
-            <div className="narrow">
-              <h1 className="display-city">{weatherData.city}</h1>
-              <span className="todays-conditions">
-                <ul>
-                  <li className="current-date">
-                    <FormattedDate date={weatherData.date} />
-                  </li>
-                  <li className="current-time">{"8:00"}</li>
-                </ul>
-                <img src={weatherData.iconUrl} alt="" />
-                <ul>
-                  <h5>
-                    <span className="current-temp">
-                      {Math.round(weatherData.temperature)}°
-                    </span>
-                  </h5>
-                  <li className="description text-capitalize">
-                    {weatherData.description}
-                  </li>
-                  <li className="real-feel">
-                    Feels Like: {Math.round(weatherData.realFeel)}°
-                  </li>
-                  <li className="humidity">
-                    Humidity: {weatherData.humidity}%
-                  </li>
-                  <li className="wind-speed">
-                    Wind: {Math.round(weatherData.windSpeed)} mph
-                  </li>
-                </ul>
-              </span>
-            </div>
-            <div className="wide">
-              <div className="weather-forecast"></div>
-              <br />
-              <footer>
-                <p>
-                  <a
-                    href="https://github.com/KTBarbier/react-weather"
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    Open-source code
-                  </a>
-                  <br />
-                  by Kristen Trahan Barbier
-                </p>
-              </footer>
-            </div>
-          </div>
+          <WeatherInfo data={weatherData} />
         </div>
       </div>
     );

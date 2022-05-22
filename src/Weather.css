@@ -10,24 +10,30 @@
 .Weather ul {
   list-style: none;
 }
+
 .Weather .main-icon {
   width: 160px;
   padding-left: 28px;
   padding-bottom: 15px;
 }
+
 .Weather .todays-conditions {
   text-align: left;
 }
+
 .Weather .parent {
   display: flex;
 }
+
 .Weather .narrow {
   width: 218px;
 }
+
 .Weather .wide {
   flex: 1;
   padding: 25px 0 0 0;
 }
+
 .Weather .card {
   margin: 25px 0 0 0;
   background: transparent;
@@ -47,6 +53,7 @@
   background-color: transparent;
   padding-top: 0;
 }
+
 .Weather .submit-city:hover {
   cursor: pointer;
   border: none;
@@ -56,14 +63,17 @@
   text-align: right;
   font-size: smaller;
 }
+
 .Weather .active {
   color: black;
   cursor: default;
 }
+
 .Weather .active:hover {
   text-decoration: none;
   color: black;
 }
+
 .Weather div.container {
   max-width: 60%;
   padding-top: 20px;
@@ -79,12 +89,16 @@
   background: linear-gradient(to top, #bdc2e8 0%, #bdc2e8 1%, #e6dee9 100%);
 }
 
-.Weather .input-group > .custom-select:not(:last-child),
-.Weather .input-group > .form-control:not(:last-child) {
+.Weather .input-group>.custom-select:not(:last-child),
+.Weather .input-group>.form-control:not(:last-child) {
   border-top-right-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
 }
 
 .Weather .current-temp {
   font-size: larger;
+}
+
+.dateTime {
+  margin-top: 30px;
 }
