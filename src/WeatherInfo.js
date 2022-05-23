@@ -9,9 +9,7 @@ export default function WeatherInfo(props) {
           <h1 className="display-city">{props.data.city}</h1>
           <span className="todays-conditions">
             <ul>
-              <li className="current-date">
-                <FormattedDate date={props.data.date} />
-              </li>
+              <li className="current-date"></li>
             </ul>
             <img src={props.data.iconUrl} alt="" />
             <ul>
@@ -30,6 +28,7 @@ export default function WeatherInfo(props) {
               <li className="wind-speed">
                 Wind: {Math.round(props.data.windSpeed)} mph
               </li>
+              <FormattedDate date={props.data.date} />
             </ul>
           </span>
         </div>

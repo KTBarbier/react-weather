@@ -20,7 +20,7 @@ export default function Weather(props) {
       realFeel: response.data.main.feels_like,
       humidity: response.data.main.humidity,
       windSpeed: response.data.wind.speed,
-      iconCode: response.data.weather[0].icon,
+      iconUrl: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
     });
   }
 
