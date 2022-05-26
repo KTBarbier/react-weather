@@ -32,19 +32,6 @@ export default function WeatherInfo(props) {
         <div className="wide">
           <div className="weather-forecast"></div>
           <br />
-          <footer>
-            <p>
-              <a
-                href="https://github.com/KTBarbier/react-weather"
-                rel="noreferrer"
-                target="_blank"
-              >
-                Open-source code
-              </a>
-              <br />
-              by Kristen Trahan Barbier
-            </p>
-          </footer>
         </div>
       </div>
     </div>
