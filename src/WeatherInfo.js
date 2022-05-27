@@ -1,6 +1,9 @@
 import React from "react";
 import FormattedDate from "./FormattedDate";
+import "bootstrap/dist/css/bootstrap.min.css";
 import WeatherUnit from "./WeatherUnit";
+import "./Weather.css";
+import WeatherForecast from "./WeatherForecast";
 
 export default function WeatherInfo(props) {
   return (
@@ -29,10 +32,7 @@ export default function WeatherInfo(props) {
             </ul>
           </span>
         </div>
-        <div className="wide">
-          <div className="weather-forecast"></div>
-          <br />
-        </div>
+        <WeatherForecast />
       </div>
     </div>
   );

@@ -1,0 +1,25 @@
+.WeatherForecast-temperature-min {
+    margin-left: 10px;
+}
+
+.icons {
+    max-width: 75px;
+}
+
+.card {
+    margin: 25px 0 0 0;
+    background: transparent;
+    text-align: center;
+    margin-left: 75px;
+}
+
+.wide {
+    flex: 1;
+    padding: 25px 0 0 0;
+}
+
+.WeatherForecast-footer {
+    text-align: right;
+    font-size: 8px;
+    ;
+}

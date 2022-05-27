@@ -19,29 +19,16 @@
 
 .Weather .todays-conditions {
   text-align: left;
+  padding-right: 50px;
 }
 
 .Weather .parent {
   display: flex;
 }
 
-.Weather .narrow {
+.narrow {
   width: 218px;
-}
-
-.Weather .wide {
-  flex: 1;
-  padding: 25px 0 0 0;
-}
-
-.Weather .card {
-  margin: 25px 0 0 0;
-  background: transparent;
-  text-align: center;
-}
-
-.Weather .icons {
-  max-width: 75px;
+  padding-right: 50px;
 }
 
 .Weather .search-bar {
@@ -59,20 +46,11 @@
   border: none;
 }
 
-.Weather footer {
+.footer {
   text-align: right;
   font-size: smaller;
 }
 
-.Weather .active {
-  color: black;
-  cursor: default;
-}
-
-.Weather .active:hover {
-  text-decoration: none;
-  color: black;
-}
 
 .Weather div.container {
   max-width: 60%;
@@ -89,8 +67,8 @@
   background: linear-gradient(to top, #bdc2e8 0%, #bdc2e8 1%, #e6dee9 100%);
 }
 
-.Weather .input-group>.custom-select:not(:last-child),
-.Weather .input-group>.form-control:not(:last-child) {
+.input-group>.custom-select:not(:last-child),
+.input-group>.form-control:not(:last-child) {
   border-top-right-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
 }
