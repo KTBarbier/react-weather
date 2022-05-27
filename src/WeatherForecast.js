@@ -1,8 +1,21 @@
 import React from "react";
 import "./WeatherForecast.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
 
-export default function WeatherForecast() {
+export default function WeatherForecast(props) {
+  function handleResponse(response) {
+    console.log(response.data);
+  }
+  console.log(props);
+
+  let apiKey = "65d2465365ff42d62007012b620803eb";
+  let latitude = props.coordinates.lat;
+  let longitude = props.coordinates.lon;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`;
+
+  axios.get(apiUrl).then(handleResponse);
+
   return (
     <div className="WeatherForecast">
       <div className="wide">
@@ -128,7 +141,7 @@ export default function WeatherForecast() {
         </div>
         <br />
         <footer>
-          <p>
+          <p className="WeatherForecast-footer">
             <a
               href="https://github.com/KTBarbier/react-weather"
               rel="noreferrer"
