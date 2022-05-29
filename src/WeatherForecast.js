@@ -1,140 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import "./WeatherForecast.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
+import WeatherForecastDay from "./WeatherForecastDay";
 
 export default function WeatherForecast(props) {
+  let [loaded, setLoaded] = useState(false);
+  let [forecast, setForecast] = useState(null);
+
   function handleResponse(response) {
-    console.log(response.data);
+    setForecast(response.data.daily);
+    setLoaded(true);
   }
-  console.log(props);
-
-  let apiKey = "65d2465365ff42d62007012b620803eb";
-  let latitude = props.coordinates.lat;
-  let longitude = props.coordinates.lon;
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`;
-
-  axios.get(apiUrl).then(handleResponse);
-
-  return (
-    <div className="WeatherForecast">
-      <div className="wide">
-        <div className="weather-forecast">
-          <div className="row">
-            <div className="col-4">
-              <div className="card">
-                <div className="card-body">
-                  <img
-                    src="http://openweathermap.org/img/wn/10d@2x.png"
-                    alt=""
-                    className="icons"
-                  />
-                  <div className="WeatherForecast-day">Fri</div>
-                  <div className="WeatherForecast-description">
-                    Partly Cloudy
-                  </div>
-                  <div className="WeatherForecast-temperatures">
-                    <span className="WeatherForecast-temperature-max">90°</span>
-                    <span className="WeatherForecast-temperature-min">80°</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-4">
-              <div className="card">
-                <div className="card-body">
-                  <img
-                    src="http://openweathermap.org/img/wn/10d@2x.png"
-                    alt=""
-                    className="icons"
-                  />
-                  <div className="WeatherForecast-day">Fri</div>
-                  <div className="WeatherForecast-description">
-                    Partly Cloudy
-                  </div>
-                  <div className="WeatherForecast-temperatures">
-                    <span className="WeatherForecast-temperature-max">90°</span>
-                    <span className="WeatherForecast-temperature-min">80°</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-4">
-              <div className="card">
-                <div className="card-body">
-                  <img
-                    src="http://openweathermap.org/img/wn/10d@2x.png"
-                    alt=""
-                    className="icons"
-                  />
-                  <div className="WeatherForecast-day">Fri</div>
-                  <div className="WeatherForecast-description">
-                    Partly Cloudy
-                  </div>
-                  <div className="WeatherForecast-temperatures">
-                    <span className="WeatherForecast-temperature-max">90°</span>
-                    <span className="WeatherForecast-temperature-min">80°</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-4">
-              <div className="card">
-                <div className="card-body">
-                  <img
-                    src="http://openweathermap.org/img/wn/10d@2x.png"
-                    alt=""
-                    className="icons"
-                  />
-                  <div className="WeatherForecast-day">Fri</div>
-                  <div className="WeatherForecast-description">
-                    Partly Cloudy
-                  </div>
-                  <div className="WeatherForecast-temperatures">
-                    <span className="WeatherForecast-temperature-max">90°</span>
-                    <span className="WeatherForecast-temperature-min">80°</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-4">
-              <div className="card">
-                <div className="card-body">
-                  <img
-                    src="http://openweathermap.org/img/wn/10d@2x.png"
-                    alt=""
-                    className="icons"
-                  />
-                  <div className="WeatherForecast-day">Fri</div>
-                  <div className="WeatherForecast-description">
-                    Partly Cloudy
-                  </div>
-                  <div className="WeatherForecast-temperatures">
-                    <span className="WeatherForecast-temperature-max">90°</span>
-                    <span className="WeatherForecast-temperature-min">80°</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-4">
-              <div className="card">
-                <div className="card-body">
-                  <img
-                    src="http://openweathermap.org/img/wn/10d@2x.png"
-                    alt=""
-                    className="icons"
-                  />
-                  <div className="WeatherForecast-day">Fri</div>
-                  <div className="WeatherForecast-description">
-                    Partly Cloudy
-                  </div>
-                  <div className="WeatherForecast-temperatures">
-                    <span className="WeatherForecast-temperature-max">90°</span>
-                    <span className="WeatherForecast-temperature-min">80°</span>
-                  </div>
-                </div>
+  if (loaded) {
+    console.log(forecast);
+    return (
+      <div>
+        <div className="WeatherForecast">
+          <div className="wide">
+            <div className="weather-forecast">
+              <div className="row">
+                {forecast.map(function (dailyForecast, index) {
+                  if (index > 0 && index < 7) {
+                    return (
+                      <div className="col-4" key={index}>
+                        <WeatherForecastDay data={dailyForecast} />
+                      </div>
+                    );
+                  }
+                  return null;
+                })}
               </div>
             </div>
           </div>
@@ -153,6 +48,15 @@ export default function WeatherForecast(props) {
           </p>
         </footer>
       </div>
-    </div>
-  );
+    );
+  } else {
+    let apiKey = "4acb7c56fc6e9f11da6c15d8f2d09ac8";
+    let latitude = props.coordinates.lat;
+    let longitude = props.coordinates.lon;
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`;
+
+    axios.get(apiUrl).then(handleResponse);
+
+    return null;
+  }
 }
